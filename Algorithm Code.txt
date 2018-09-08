@@ -1,0 +1,106 @@
+package Nearest;
+
+import java.io.*;
+import java.util.*;
+
+public class Nearest 
+{
+
+    public static void main (String args[]) throws IOException
+    {
+	Scanner scan = new Scanner(new File("Route 1.txt"));
+	ArrayList<Point> list = new ArrayList<Point>();
+		
+	while(scan.hasNextLine())
+	{
+            int x = Integer.parseInt(scan.next());
+            int y =Integer.parseInt(scan.next());
+			
+            Point pt = new Point(x , y);
+            list.add(pt);
+	}
+		
+	Point[] array = list.toArray(new Point[list.size()]);
+			
+	for(int n = 0; n < array.length-1; n++)
+	{
+            for (int i = n + 1; i < array.length-1; i++)
+            {
+                double distance1 = Distance(array[n], array[n+1]);
+		double distance2 = Distance(array[n], array[i+1]);
+		
+		if(distance2 < distance1)
+                {
+                    Point temp;
+                    temp = array[n+1];
+                    array[n+1] = array[i+1];
+                    array[i+1] = temp;
+                    
+                }	
+                else
+                {
+						
+                }
+	     }
+              
+	}
+			
+	for(int i = 0; i<=array.length-1; i++)
+	{
+			
+            array[i].output();
+            
+	}
+			
+    
+    
+    double tDis = 0;
+    int count = 0;
+    for(int i = 0; i<=array.length-1; i++)
+    {
+        if (i>0)
+	{
+            tDis = tDis + Distance(array[i-1], array[i]);
+	}
+			
+            count++;
+			
+	}
+			System.out.println(count);
+			System.out.println(tDis);
+    }
+    public static Double Distance(Point x, Point y)
+    {
+	Point p1 = x;
+	Point p2 = y;
+		
+	double answer;
+		
+	answer= Math.sqrt(((p2.xes - p1.xes)*(p2.xes - p1.xes))+((p2.ys - p1.ys)*(p2.ys - p1.ys)));
+		
+	return answer;
+    }
+        
+}
+
+
+///////////////////////////////////////////////////////////////////
+package Nearest;
+
+public class Point 
+{
+	int xes;
+	int ys;
+	
+	public Point(int x, int y)
+	{
+            this.xes = x;
+            this.ys = y;
+	}
+	
+	public void output()
+	{
+            System.out.println(xes + " " + ys);
+	}
+}
+
